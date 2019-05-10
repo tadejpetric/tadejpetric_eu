@@ -25,7 +25,7 @@ SECRET_KEY = '&-=iaed5e6t6#xhe$g%#%6@a%^$g7_a7*q3r@yd77jd)*n-4_t'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['www.tadejpetric.eu']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'www.tadejpetric.eu']
 
 
 # Application definition

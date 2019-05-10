@@ -1,0 +1,12 @@
+# for emacs autosaves
+*~
+
+.pyc
+.pyo
+.pyd
+.so
+__pychache__/
+
+db.sqlite3
+*.log
+local_settings.py

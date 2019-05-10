@@ -1,0 +1,48 @@
+body {
+    background-color: #262626;
+    color: #DDDDDD;
+}
+
+:root {
+    /* variables */
+    --nav-height: 2.5em;
+}
+
+nav {
+    background-color: #353535;
+    height: var(--nav-height);
+    margin-bottom: 1em;
+}
+
+.toolbar {
+    float: left;
+    width: 20%;
+    height: inherit;
+    text-align: center;
+    line-height: var(--nav-height);
+}
+
+.toolbar:hover {
+    background-color: #350102;
+    color: #727ef9;
+}
+
+
+aside {
+    float:left;
+    width: 20%;
+}
+
+main {
+    color: #e56810;
+}
+
+footer {
+    clear: both;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background-color: #353535;
+}

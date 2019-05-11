@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -24,19 +23,19 @@ SECRET_KEY = '&-=iaed5e6t6#xhe$g%#%6@a%^$g7_a7*q3r@yd77jd)*n-4_t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+ADMIN_ENABLED = False
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'www.tadejpetric.eu']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'page',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +51,14 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'website.urls'
 
 TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        'DIRS': [os.path.join(BASE_DIR, 'page/templates/jinja2')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'environment': 'website.jinja2.environment',
+        },
+    },
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
@@ -69,7 +76,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'website.wsgi.application'
 
-
+DJANGO_SERVE_STATIC = True
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -117,4 +124,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+STATICFILES_FINDERS = (
+        'django.contrib.staticfiles.finders.FileSystemFinder',
+        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+

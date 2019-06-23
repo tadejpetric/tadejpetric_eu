@@ -1,15 +1,88 @@
 <!doctype html>
-<html lang="en">
+<html lang="sl">
     <head>
         <meta charset="UTF-8"/>
         <title>obrazec za račune</title>
         <link href="{{ static('racuni/index.css') }}" rel="stylesheet"/>
     </head>
     <body>
-        <form action="racuni/input.html" method="GET">
+        <h1>Izdaja novega računa</h1>
+        <form action="result" method="GET">
             {{ csrf_input }}
+            <company>
+                <label for="comp_name">Ime podjetja: </label>
+                <input name="comp_name" type="text" value=""/>
+      
+                <label for="house_nr">Naslov: </label>
+                <input name="house_nr" type="text" value=""/>
             
-            <button type="submit">hey there</button>
+                <label for="post_nr">Poštna številka: </label>
+                <input name="post_nr" type="number" value=""/>
+                <label for="city">Mesto: </label>
+                <input name="city" type="text" value=""/>
+            </company>
+            <!-- right align -->
+            <date_city>
+                <label for="bill_city">Mesto izdaje računa: </label>
+                <input name="bill_city" type="text" value=""/>
+                <label for="date">Datum izdaje računa: </label>
+                <input name="date" type="date" value=""/>
+            </date_city>
+            <!-- end right align -->
+            <account_info>
+                <label for="tax_nr">Davčna številka: </label>
+                <input name="tax_nr" type="number" value=""/>
+
+                <label for="id_nr">Matična številka: </label>
+                <input name="id_nr" type="number" value=""/>
+
+                <label for="transact_acc">Transakcijski račun: </label>
+                <input name="transact_acc" type="text" value=""/> <!-- error checking ? -->
+            </account_info>
+            
+            <!-- right align -->
+            <contact_info>
+                <label for="phone">Telefon: </label>
+                <input name="phone" type="tel" value=""/>
+                <label for="email">E-pošta: </label>
+                <input name="email" type="email" value=""/>
+            </contact_info>
+            <!-- end right align -->
+
+            <!-- center align -->
+            <receipt_number>
+                <label for="bill_number">Številka računa: </label>
+                <input name="bill_number" type="text" value=""/>
+            </receipt_number>
+            <!-- end center align -->
+            <buyer_info>
+                <label for="buyer_full_name">Ime in priimek kupca: </label>
+                <input name="buyer_full_name" type="text" value=""/>
+                <label for="buyer_house_nr">Naslov kupca: </label>
+                <input name="buyer_house_nr" type="text" value=""/>
+                <label for="buyer_post_nr">Poštna številka kupca: </label>
+                <input name="buyer_post_nr" type="number" value=""/>
+            </buyer_info>
+            
+            <!-- right align -->
+            <dates>
+                <label for="task_date">Datum opravljene storitve</label>
+                <input name="task_date" type="date" value=""/>
+                <label for="payment_date">Rok plačila: </label>
+                <input name="payment_date" type="date" value=""/>
+            </dates>
+            <!-- end right align -->
+            <receipt_title>
+                <label for="task">Opravilo: </label>
+                <input name="task" type="text" value=""/>
+            </receipt_title>
+            <!-- TODO: extensible table for receipt -->
+
+            <signiature>
+                <label for="full_name">Ime in priimek</label>
+                <input name="full_name" type="text" value=""/>
+            </signiature>
+            <button type="submit">Naprej</button>
         </form>
     </body>
 </html>

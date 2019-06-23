@@ -6,7 +6,7 @@ def index(request):
 
 
 def form_input(request):
-    return render(request, "racuni/f_input.html")
+    return render(request, "racuni/form_input.html")
 
 
 def result(request):

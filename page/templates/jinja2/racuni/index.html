@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>obrazec za račune</title>
+        <link href="{{ static('racuni/index.css') }}" rel="stylesheet"/>
+    </head>
+    <body>
+        <form action="racuni/input.html" method="GET">
+            {{ csrf_input }}
+            
+            <button type="submit">hey there</button>
+        </form>
+    </body>
+</html>

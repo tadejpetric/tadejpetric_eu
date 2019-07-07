@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="sl">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Document</title>
+    </head>
+    <body>
+        <header>Osebna stran</header>
+        
+        <!-- list of receipts -->
+        {% for receipt in receipts %}
+        <receipt>
+            {{ receipt.name }}
+        </receipt>
+        {% endfor %}
+
+        
+    </body>
+</html>

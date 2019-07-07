@@ -7,7 +7,7 @@
     </head>
     <body>
         <form action="result" method="POST">
-            {{ csrf_input }}
+            {% csrf_token %}
             <label for="account">Vnesi uporabniško ime: </label>
             <input name="account" type="text" value=""/>
             <button type="submit">Naprej</button>

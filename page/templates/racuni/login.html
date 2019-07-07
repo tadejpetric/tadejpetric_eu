@@ -7,7 +7,7 @@
     <body>
         <h1>Vpis</h1>
         <form action="homepage" method="GET"> <!-- change to POST in prod -->
-            {{ csrf_input }}
+            {% csrf_token %}
             <label for="username">Uporabniško ime: </label>
             <input name="username" type="text" value=""/>
 

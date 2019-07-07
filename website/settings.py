@@ -52,14 +52,6 @@ ROOT_URLCONF = 'website.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.jinja2.Jinja2',
-        'DIRS': [os.path.join(BASE_DIR, 'page/templates/jinja2')],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'environment': 'website.jinja2.environment',
-        },
-    },
-    {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
@@ -77,7 +69,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'website.wsgi.application'
 
 DJANGO_SERVE_STATIC = True
-# Database
+# Databas
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {

@@ -4,12 +4,13 @@
     <head>
         <meta charset="UTF-8"/>
         <title>obrazec za račune</title>
-        <link href="{{ static('racuni/index.css') }}" rel="stylesheet"/>
+        {%load static%}
+        <link href="{% static 'racuni/index.css' %}" rel="stylesheet"/>
     </head>
     <body>
         <h1>Izdaja novega računa</h1>
         <form action="result" method="GET">
-            {{ csrf_input }}
+            {% csrf_token %}
             <company>
                 <label for="comp_name">Ime podjetja: </label>
                 <input name="comp_name" type="text" value=""/>

@@ -1,1 +1,95 @@
+/* We use this file for form_input and form_input_anonymous.html */
+:root { /* variables */
+    --form-elements-margin: 0em;
+}
 
+body {
+    margin: 0;
+    background-color: #EEEEEE;
+}
+
+form {
+    background-color: white;
+    padding: 0 2em 0 2em;
+    margin: 0 15% 0 15%;
+}
+
+h1 {
+    display: block;
+    margin: 0 0 1em 0;
+    background-color: #b7e7e7;
+    width: calc(100% - 1em);
+    padding: 1em 0 1em 1em;
+    
+}
+
+company {
+    float: left;
+}
+
+company label {
+    
+}
+
+form * input {
+    margin-bottom: var(--form-elements-margin);
+    margin-top: 0;
+}
+form * label {
+    margin-bottom: var(--form-elements-margin);
+    margin-top: 0;
+}
+form * {
+    margin: 1em 0 1em 0;
+}
+
+date_city {
+    float: right;
+}
+
+
+account_info {
+    clear: both;
+    float: left;
+}
+
+contact_info {
+    float: right;
+}
+
+receipt_number {
+    display: inline-block;
+    width: 100%;
+    margin: 2em 0 2em 0;
+}
+
+dates {
+    float: right;
+}
+
+#centering {
+    width: max-content;
+    width: -moz-fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+buyer_info {
+    float: left;
+}
+
+receipt_title {
+    clear: both;
+    float: left;
+}
+
+signiature {
+    float: right;
+    margin-right: 2em;
+}
+
+button {
+    clear: both;
+    margin-top: 2em;
+    float: right;
+}

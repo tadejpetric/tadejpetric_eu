@@ -1,4 +1,6 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
+#from django.contrib.auth.models import User
+import page.racuni.user_manage as user_manage
 
 
 def login(request):
@@ -9,9 +11,14 @@ class element:
     def __init__(self, arg):
         self.name = arg
 
+
 def homepage(request):
-    receipts = [element("test"), element("wow")]
-    return render(request, "racuni/homepage.html", receipts = receipts)
+    if not user_manage.input_validate(request.POST):
+        return redirect('./login')
+    if request.POST['confirm'] == 'register':
+        pass
+    context = {"receipts": [element(request.POST['username']), element(request.POST['password'])]}
+    return render(request, "racuni/homepage.html", context)
 
 
 def settings(request):
@@ -27,4 +34,5 @@ def form_input_anonymous(request):
 
 
 def result(request):
+    
     return render(request, "racuni/result.html")

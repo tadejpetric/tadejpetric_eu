@@ -6,15 +6,16 @@
     </head>
     <body>
         <h1>Vpis</h1>
-        <form action="homepage" method="GET"> <!-- change to POST in prod -->
+        <form action="homepage" method="POST">
             {% csrf_token %}
             <label for="username">Uporabniško ime: </label>
-            <input name="username" type="text" value=""/>
+            <input name="username" type="text" value="" required/>
 
             <label for="password">Geslo: </label>
-            <input name="username" type="password" value=""/>
+            <input name="password" type="password" value="" required/>
 
-            <button type="submit">Prijava</button>
+            <button name="confirm" type="submit" value="login">Prijava</button>
+            <button name="confirm" type="submit" value="register">Registracija</button>
         </form>
 
         <p>Ali pa nadaljuj <a href="form_input_anonymous">brez prijave</a>.</p>

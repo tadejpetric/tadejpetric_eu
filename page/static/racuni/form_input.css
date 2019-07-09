@@ -98,6 +98,11 @@ button {
 #contents {
     margin-left: 5%;
     width: 90%;
+    border-collapse: collapse;
+}
+
+tbody,thead {
+    border-bottom: 0.2em solid blue;
 }
 
 #extend {

@@ -55,6 +55,7 @@ function delete_row(row_number) {
         row.getElementsByTagName('td')[2].children[0].setAttribute('oninput', 'calculate_result('+i+');');
         row.getElementsByTagName('td')[3].children[0].setAttribute('oninput', 'calculate_result('+i+');');
         row.getElementsByTagName('td')[4].children[0].setAttribute('onclick', 'delete_row('+i+');');
+        i++;
     }
     calculate_result(0);
 }

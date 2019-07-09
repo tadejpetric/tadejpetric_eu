@@ -9,6 +9,7 @@ body {
 }
 
 form {
+    display: inline-block;
     background-color: white;
     padding: 0 2em 0 2em;
     margin: 0 15% 0 15%;
@@ -20,7 +21,7 @@ h1 {
     background-color: #b7e7e7;
     width: calc(100% - 1em);
     padding: 1em 0 1em 1em;
-    
+    font-family: Arial, Helvetica;
 }
 
 company {
@@ -92,4 +93,13 @@ button {
     clear: both;
     margin-top: 2em;
     float: right;
+}
+
+#contents {
+    margin-left: 5%;
+    width: 90%;
+}
+
+#extend {
+    margin-top: 0;
 }

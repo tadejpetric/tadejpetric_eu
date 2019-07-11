@@ -16,7 +16,8 @@ def homepage(request):
     if not user_manage.input_validate(request.POST):
         return redirect('./login')
     if request.POST['confirm'] == 'register':
-        pass
+        if user_manage.register(request.POST):
+            return render(request, 'racuni/login.html')
     context = {"receipts": [element(request.POST['username']), element(request.POST['password'])]}
     return render(request, "racuni/homepage.html", context)
 
@@ -34,5 +35,4 @@ def form_input_anonymous(request):
 
 
 def result(request):
-    
     return render(request, "racuni/result.html")

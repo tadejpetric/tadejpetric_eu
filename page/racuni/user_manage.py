@@ -18,3 +18,12 @@ def create_user(inputs):
         password=inputs['password'],
         )
     user.save()
+
+
+def register(inputs):
+    if User.objects.filter(username=inputs['username']).exists():
+        return False
+    if inputs['password'] == "":
+        return False
+    create_user(inputs)
+    return True

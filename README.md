@@ -12,6 +12,7 @@ pip install psycopg2
 sudo -iu postgres
 initdb -D /var/lib/postgres/data
 
+psql
 CREATE DATABASE page
 CREATE USER pageuser WITH PASSWORD 'password'; -- set password to something secure
 ALTER ROLE pageuser SET client_encoding TO 'utf8';

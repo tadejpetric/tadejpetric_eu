@@ -12,6 +12,13 @@ pip install psycopg2
 sudo -iu postgres
 initdb -D /var/lib/postgres/data
 
+exit
+
+systemctl enable postgresql.service
+systemctl start postgresql.service
+
+sudo -iu postgres
+
 psql
 CREATE DATABASE page
 CREATE USER pageuser WITH PASSWORD 'password'; -- set password to something secure
@@ -22,8 +29,8 @@ GRANT all PRIVILEGES ON DATABASE page TO pageuser;
 \q
 exit
 
-systemctl enable postgresql.service
-systemctl start postgresql service
+#systemctl enable postgresql.service
+#systemctl start postgresql.service
 
 python manage.py makemigrations
 python manage.py migrate

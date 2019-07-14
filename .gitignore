@@ -1,12 +1,17 @@
 # for emacs autosaves
 *~
 
+# various python cache files
 .pyc
 .pyo
 .pyd
 .so
 __pycache__/
 
+# databases and logs
 db.sqlite3
 *.log
 local_settings.py
+
+# static cache
+staticfiles/

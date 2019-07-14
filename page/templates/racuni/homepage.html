@@ -10,10 +10,19 @@
         <!-- list of receipts -->
         {% for receipt in receipts %}
         <receipt>
-            {{ receipt.name }}
+            {{ receipt.pk }}
+            {{ receipt.receipt_title }}
+            {{ receipt.date }}
+            {{ receipt.client }}
+            {{ receipt.total }}
+            <br>
         </receipt>
         {% endfor %}
-
+        <!-- add edit feature -->
+        <a href="./form_input">Vnesi nov račun</a>
+        <form>
+            <button type="submit" name="special" value="logout">odjava</button>
+        </form>
         
     </body>
 </html>

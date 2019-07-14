@@ -1,16 +1,129 @@
 <!doctype html>
-<html lang="en">
+<!-- Input form for logged in users -->
+<html lang="sl">
     <head>
         <meta charset="UTF-8"/>
-        <title>Document</title>
-        <link href="{{ static('racuni/form_input.css') }}" rel="stylesheet"/>
+        <title>obrazec za račune</title>
+        {%load static%}
+        <link href="{% static 'racuni/form_input.css' %}" rel="stylesheet"/>
+        <script type="text/javascript" src="{% static 'racuni/form_input.js' %}"></script>
     </head>
     <body>
-        <form action="result" method="POST">
+        <h1>Izdaja novega računa</h1>
+        <form action="result" method="GET">
             {% csrf_token %}
-            <label for="account">Vnesi uporabniško ime: </label>
-            <input name="account" type="text" value=""/>
-            <button type="submit">Naprej</button>
+            <company>
+                <label for="comp_name">Ime podjetja: </label>
+                <input name="comp_name" type="text" value="{{ preset.comp_name }}"/><br>
+                
+                <label for="house_nr">Naslov: </label>
+                <input name="house_nr" type="text" value="{{ preset.house_nr }}"/><br>
+            
+                <label for="post_nr">Poštna številka: </label>
+                <input name="post_nr" type="number" value="{{ preset.house_nr }}" pattern="\d+" /><br>
+                <label for="city">Mesto: </label>
+                <input name="city" type="text" value="{{ preset.city }}"/><br>
+            </company>
+            <!-- right align -->
+            <date_city>
+                <label for="bill_city">Mesto izdaje računa: </label>
+                <input name="bill_city" type="text" value="{{ preset.bill_city }}"/><br>
+                <label for="date">Datum izdaje računa: </label>
+                <input name="date" type="date" value="{{ preset.date }}"/><br>
+            </date_city>
+            <!-- end right align -->
+            <account_info>
+                <label for="tax_nr">Davčna številka: </label>
+                <input name="tax_nr" type="number" value="{{ preset.bill_city }}"/><br>
+
+                <label for="id_nr">Matična številka: </label>
+                <input name="id_nr" type="number" value="{{ preset.id_nr}}"/><br>
+
+                <label for="transact_acc">Transakcijski račun: </label>
+                <input name="transact_acc" type="text" value="{{ preset.transact_acc }}" pattern="[A-Z]{2} ?\d{2}[\d A-Za-z]{1,30}" /><br> <!-- error checking ? -->
+            </account_info>
+            
+            <!-- right align -->
+            <contact_info>
+                <label for="phone">Telefon: </label>
+                <input name="phone" type="tel" value="{{ preset.phone }}"/><br>
+                <label for="email">E-pošta: </label>
+                <input name="email" type="email" value="{{ preset.email }}" pattern=".+@.+\..+" /><br>
+            </contact_info>
+            <!-- end right align -->
+
+            <!-- center align -->
+            <receipt_number>
+                <div id="centering">
+                <label for="bill_number">Številka računa: </label>
+                <input name="bill_number" type="text" value="{{ preset.bill_number }}"/><br>
+                </div>
+            </receipt_number>
+            <!-- end center align -->
+            <buyer_info>
+                <label for="buyer_full_name">Ime in priimek kupca: </label>
+                <input name="buyer_full_name" type="text" value="{{ preset.buyer_full_name }}"/><br>
+                <label for="buyer_house_nr">Naslov kupca: </label>
+                <input name="buyer_house_nr" type="text" value="{{ preset.buyer_house_nr }}"/><br>
+                <label for="buyer_post_nr">Poštna številka kupca: </label>
+                <input name="buyer_post_nr" type="number" value="{{ preset.buyer_post_nr }}"/><br>
+                <label for="id_for_vat">ID za DDV:</label>
+                <input name="id_for_vat" type="text" value="{{ preset.id_for_vat }}"/><br>
+            </buyer_info>
+            
+            <!-- right align -->
+            <dates>
+                <label for="task_date">Datum opravljene storitve</label>
+                <input name="task_date" type="date" value="{{ preset.task_date }}"/><br>
+                <label for="payment_date">Rok plačila: </label>
+                <input name="payment_date" type="date" value="{{ preset.payment_date }}"/><br>
+            </dates>
+            <!-- end right align -->
+            <receipt_title>
+                <label for="task">Opravilo: </label>
+                <input name="task" type="text" value="{{ preset.task }}"/><br>
+            </receipt_title>
+            <!-- TODO: extensible table for receipt -->
+
+            <table id="contents">
+                <thead>
+                    <tr>
+                        <th>OPRAVILO</th>
+                        <th>ME</th>
+                        <th>EVRO/KOL</th>
+                        <th>KOLIČINA</th>
+                        <th>SKUPAJ</th>
+                        <th>ODSTRANI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in preset.entries %}
+                    <tr>
+                        <td>{{ entry.opravilo }}</td>
+                        <td>{{ entry.measure_unit }}</td>
+                        <td>{{ entry.cents_per_quantity }}</td>
+                        <td>{{ entry.quantity }}</td>
+                        <td>{{ entry.total }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Skupaj</td>
+                        <td colspan="3"></td>
+                        <td id="total_sum">{{ preset.total }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <button id="extend" type="button" id="addcell" onclick="append_row();">Dodaj</button><br>
+            <signiature>
+                <label for="full_name">Ime in priimek: </label>
+                <input name="full_name" type="text" value="{{ preset.full_name }}"/><br>
+            </signiature>
+            {% if form_type == "logged" %}
+            <button type="submit" name="action" value="save">Shrani</button>
+            {% endif %}
+            <button type="submit" name="action" value="print">Natisni</button>
         </form>
     </body>
 </html>

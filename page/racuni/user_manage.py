@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-
+from django.contrib.auth import authenticate, login
 
 def input_validate(inputs):
     try:
@@ -23,7 +23,18 @@ def create_user(inputs):
 def register(inputs):
     if User.objects.filter(username=inputs['username']).exists():
         return False
-    if inputs['password'] == "":
+    if not input_validate(inputs):
         return False
     create_user(inputs)
     return True
+
+
+def login_ses(request):
+    uname = request.POST['username']
+    pword = request.POST['password']
+    user = authenticate(request, username=uname, password=pword)
+    if user is not None:
+        login(request, user)
+        return True
+    else:
+        return False

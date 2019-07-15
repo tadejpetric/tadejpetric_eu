@@ -12,7 +12,7 @@ class SavedTemplate(models.Model):
 
     bill_city = models.CharField(max_length=30)
     tax_nr = models.CharField(max_length=20)
-    id_nr = models.CharField(max_length=20)
+    id_nr = models.CharField(max_length=20)  # matična številka
     transact_acc = models.CharField(max_length=40)
     phone = models.CharField(max_length=20)
     email = models.CharField(max_length=50)
@@ -31,7 +31,7 @@ class SavedReceipt(models.Model):
     bill_city = models.CharField(max_length=30)
     date = models.DateField()
     tax_nr = models.CharField(max_length=20)
-    id_nr = models.CharField(max_length=20)
+    id_nr = models.CharField(max_length=20)  # matična številka
     transact_acc = models.CharField(max_length=40)
     phone = models.CharField(max_length=20)
     email = models.CharField(max_length=50)

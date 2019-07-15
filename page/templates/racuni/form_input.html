@@ -20,7 +20,7 @@
                 <input name="house_nr" type="text" value="{{ preset.house_nr }}"/><br>
             
                 <label for="post_nr">Poštna številka: </label>
-                <input name="post_nr" type="number" value="{{ preset.house_nr }}" pattern="\d+" /><br>
+                <input name="post_nr" type="number" value="{{ preset.post_nr }}" pattern="\d+" /><br>
                 <label for="city">Mesto: </label>
                 <input name="city" type="text" value="{{ preset.city }}"/><br>
             </company>
@@ -34,8 +34,7 @@
             <!-- end right align -->
             <account_info>
                 <label for="tax_nr">Davčna številka: </label>
-                <input name="tax_nr" type="number" value="{{ preset.bill_city }}"/><br>
-
+                <input name="tax_nr" type="number" value="{{ preset.tax_nr }}"/><br>
                 <label for="id_nr">Matična številka: </label>
                 <input name="id_nr" type="number" value="{{ preset.id_nr}}"/><br>
 
@@ -120,7 +119,11 @@
                 <label for="full_name">Ime in priimek: </label>
                 <input name="full_name" type="text" value="{{ preset.full_name }}"/><br>
             </signiature>
-            {% if form_type == "logged" %}
+            {% if form_type == "edit" %}
+            <input type="hidden" name="pk" value="{{ preset.pk }}" />
+            <!-- remember to also check username request.user.username else security vulnerability -->
+            {% endif %}
+            {% if form_type != "anon" %}
             <button type="submit" name="action" value="save">Shrani</button>
             {% endif %}
             <button type="submit" name="action" value="print">Natisni</button>

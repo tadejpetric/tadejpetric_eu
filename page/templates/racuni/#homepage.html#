@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="sl">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Document</title>
+    </head>
+    <body>
+        <header>Osebna stran</header>
+        
+        <!-- list of receipts -->
+        <form action="result" method="POST" id="resform"></form>
+        <form action="form_input" method="POST" id="inform"></form>
+        {% for receipt in receipts %}
+        <receipt>
+            {{ receipt.pk }}
+            {{ receipt.receipt_title }}
+            {{ receipt.date }}
+            {{ receipt.client }}
+            {{ receipt.total }}
+            <button type="submit" form="resform" name="action" value="print">Natisni</button>
+            
+            <button type="submit" form="inform" name="form_type" value="edit">Uredi</button>
+        </receipt><br>
+        {% endfor %}
+        </form>
+        <!-- add edit feature -->
+        <a href="./form_input">Vnesi nov račun</a>
+        <form action="login" method="POST">
+            {% csrf_token %}
+            <button type="submit" name="special" value="logout">odjava</button>
+        </form>
+        
+    </body>
+</html>

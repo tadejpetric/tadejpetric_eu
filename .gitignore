@@ -15,3 +15,4 @@ local_settings.py
 
 # static cache
 staticfiles/
+migrations/

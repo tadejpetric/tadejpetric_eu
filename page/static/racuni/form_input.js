@@ -16,12 +16,12 @@ function append_row() {
     
     // create inputs
     row.appendChild(create_cell('input', {'name': 'opravilo', 'type': 'text'}));
-    row.appendChild(create_cell('input', {'name': 'me', 'type': 'text'}));
-    row.appendChild(create_cell('input', {'name': 'evro_kol',
+    row.appendChild(create_cell('input', {'name': 'measure_unit', 'type': 'text'}));
+    row.appendChild(create_cell('input', {'name': 'cents_per_quantity',
                                           'type': 'number',
                                           'step': '0.01',
                                           'oninput': 'calculate_result('+row_count+');'}));
-    row.appendChild(create_cell('input', {'name': 'kol',
+    row.appendChild(create_cell('input', {'name': 'quantity',
                                           'type': 'number',
                                           'step': '0.0001',
                                           'oninput': 'calculate_result('+row_count+');'}));

@@ -20,7 +20,8 @@
         {% endfor %}
         <!-- add edit feature -->
         <a href="./form_input">Vnesi nov račun</a>
-        <form>
+        <form action="login" method="POST">
+            {% csrf_token %}
             <button type="submit" name="special" value="logout">odjava</button>
         </form>
         

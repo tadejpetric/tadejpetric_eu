@@ -10,7 +10,7 @@
     </head>
     <body>
         <h1>Izdaja novega računa</h1>
-        <form action="result" method="GET">
+        <form action="result" method="POST">
             {% csrf_token %}
             <company>
                 <label for="comp_name">Ime podjetja: </label>
@@ -40,8 +40,7 @@
 
                 <label for="transact_acc">Transakcijski račun: </label>
                 <input name="transact_acc" type="text" value="{{ preset.transact_acc }}" pattern="[A-Z]{2} ?\d{2}[\d A-Za-z]{1,30}" /><br> <!-- error checking ? -->
-            </account_info>
-            
+            </account_info>            
             <!-- right align -->
             <contact_info>
                 <label for="phone">Telefon: </label>
@@ -98,10 +97,10 @@
                 <tbody>
                     {% for entry in preset.entries %}
                     <tr>
-                        <td>{{ entry.opravilo }}</td>
-                        <td>{{ entry.measure_unit }}</td>
-                        <td>{{ entry.cents_per_quantity }}</td>
-                        <td>{{ entry.quantity }}</td>
+                        <td><input name="opravilo" value="{{ entry.opravilo }}"/></td>
+                        <td><input name="measure_unit" value="{{ entry.measure_unit }}"/></td>
+                        <td><input name="cents_per_quantity" type="number" step="0.01" value="{{ entry.cents_per_quantity }}" /></td>
+                        <td><input name="quantity" type="number" step="0.0001" value="{{ entry.quantity }}" /></td>
                         <td>{{ entry.total }}</td>
                     </tr>
                     {% endfor %}

@@ -30,8 +30,9 @@ def register(inputs):
 
 
 def login_ses(request):
-    uname = request.POST['username']
-    pword = request.POST['password']
+    uname = request.POST.get('username')
+    pword = request.POST.get('password')
+    print(uname, pword)
     user = authenticate(request, username=uname, password=pword)
     if user is not None:
         login(request, user)

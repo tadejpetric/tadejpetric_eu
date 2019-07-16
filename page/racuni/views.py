@@ -7,34 +7,26 @@ import page.racuni.receipt_manage as receipt_manage
 
 
 def login(request):
-    try:
-        if request.POST['special'] == 'logout':
-            logout(request)
-            return redirect('./login')
-    except MultiValueDictKeyError:
-        pass
+    special = request.POST.get('special', '')
+    if special == 'logout':
+        logout(request)
+        return redirect('./login')
+    
     return render(request, 'racuni/login.html')
 
 
-class element:
-    def __init__(self, arg):
-        self.name = arg
-
-
 def homepage(request):
-    try:
-        if request.POST['confirm'] == 'register':
-            # add register successful/ unsuccessful
-            if user_manage.register(request.POST):
-                return render(request, './login')
+    confirm_post = request.POST.get('confirm')
+    if confirm_post == 'register':
+        # add register successful/ unsuccessful
+        if user_manage.register(request.POST):
             return render(request, './login')
-        if request.POST['confirm'] == 'login':
-            if not user_manage.input_validate(request.POST):
-                return redirect('./login')
-            if not user_manage.login_ses(request):
-                return redirect('./login')
-    except MultiValueDictKeyError:
-        pass
+        return render(request, './login')
+    if confirm_post == 'login':
+        if not user_manage.input_validate(request.POST):
+            return redirect('./login')
+        if not user_manage.login_ses(request):
+            return redirect('./login')
 
     if not request.user.is_authenticated:
         return redirect('./login')
@@ -50,23 +42,18 @@ def settings(request):
 def form_input(request):
     if not request.user.is_authenticated:
         return redirect('./login')
-    form_type = 'new'
-    try:
-        # POST['form_type'] only gets set on editing to 'edit'
-        form_type = request.POST['form_type']
-        # I could've put setting preset here and in the except. Pretty?
-    except MultiValueDictKeyError:
-        pass
-    
+    form_type = request.POST.get('form_type', 'new')
+
     preset = receipt_manage.Preset()
-    context = {'form_type': form_type}
     if form_type == 'new':
         # loads the preset from the saved template
         preset.new_logged_in(request.user.username)
     else:
+        # for editing
         if 'pk' not in request.POST:
             return redirect('./homepage')  # add error message
         preset.saved_logged_in(request.user.username, request.POST['pk'])
+    context = {'form_type': form_type, 'preset': preset}
     return render(request, 'racuni/form_input.html', context)
 
 
@@ -79,4 +66,16 @@ def form_input_anonymous(request):
 
 
 def result(request):
-    return render(request, 'racuni/result.html')
+    action = request.POST.get('action')
+    if action == 'save':
+        pk = request.POST.get('pk')
+        if pk is None:
+            # We enter here if making new receipt
+            receipt_manage.save_new_to_db(request.POST, request.user.username)
+            return redirect('./homepage')
+        # here if editing existing receipt
+    if action == 'print':
+        context = {}
+        return render(request, 'racuni/result.html', context)
+        pass
+    return redirect('./login')

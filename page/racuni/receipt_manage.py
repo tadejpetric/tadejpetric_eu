@@ -25,7 +25,7 @@ def get_total(entry):
 
 
 def receipts_list(username):
-    db_objects = SavedReceipt.objects.filter(username=username)
+    db_objects = SavedReceipt.objects.filter(username=username).order_by('-pk')
     receipts_ret = []
 
     for entry in db_objects:  # every users receipt
@@ -35,7 +35,7 @@ def receipts_list(username):
             entry.bill_number,
             entry.date,
             entry.buyer_full_name,
-            round(total, 2)))
+            round(total/100, 2)))
     return receipts_ret
 
 # --------- separate -----------
@@ -61,26 +61,27 @@ class Entry:
 
 
 class Preset:
-    comp_name = ""
-    house_nr = ""
-    city = ""
-    bill_city = ""
-    date = ""
-    id_nr = ""
-    transact_acc = ""
-    phone = ""
-    email = ""
-    bill_number = ""
-    buyer_full_name = ""
-    buyer_house_nr = ""
-    buyer_post_nr = ""
-    id_for_vat = ""
-    task_date = ""
-    payment_date = ""
-    task = ""
-    entries = []
-    total = "0.00 €"
-    full_name = ""
+    def __init__(self):
+        self.comp_name = ""
+        self.house_nr = ""
+        self.city = ""
+        self.bill_city = ""
+        self.date = ""
+        self.id_nr = ""
+        self.transact_acc = ""
+        self.phone = ""
+        self.email = ""
+        self.bill_number = ""
+        self.buyer_full_name = ""
+        self.buyer_house_nr = ""
+        self.buyer_post_nr = ""
+        self.id_for_vat = ""
+        self.task_date = ""
+        self.payment_date = ""
+        self.task = ""
+        self.entries = []
+        self.total = "0.00 €"
+        self.full_name = ""
 
     def new_logged_in(self, username):
         try:
@@ -94,6 +95,7 @@ class Preset:
         self.city = obj.city
         self.bill_city = obj.bill_city
         self.id_nr = obj.id_nr  # matična številka
+        self.tax_nr = obj.tax_nr
         self.transact_acc = obj.transact_acc
         self.phone = obj.phone
         self.email = obj.email
@@ -111,6 +113,7 @@ class Preset:
         self.bill_city = obj.bill_city
         self.date = obj.date
         self.id_nr = obj.id_nr
+        self.tax_nr = obj.tax_nr
         self.transact_acc = obj.transact_acc
         self.phone = obj.phone
         self.email = obj.email
@@ -124,13 +127,13 @@ class Preset:
         self.task = obj.task
 
         total = 0
-
         for o, m, c, q in zip(obj.opravilo, obj.measure_unit,
                               obj.cents_per_quantity, obj.quantity):
             self.entries.append(Entry(o, m, c, q))
+            print(Entry(o, m, c, q).total)
             total += c * q
 
-        self.total = total
+        self.total = round(total/100, 2)
         self.full_name = obj.full_name
         self.pk = pk
         return True
@@ -234,3 +237,21 @@ def delete(pk, uname):
         return False
     entry.delete()
 
+
+def set_settings(uname, post_data):
+    try:
+        setting = SavedTemplate.objects.get(username=uname)
+    except SavedTemplate.DoesNotExist:
+        setting = SavedTemplate.objects.create(username=uname)
+    setting.comp_name = post_data.get('comp_name', '')
+    setting.house_nr = post_data.get('house_nr', '')
+    setting.post_nr = post_data.get('post_nr', '')
+    setting.city = post_data.get('city', '')
+    setting.bill_city = post_data.get('bill_city', '')
+    setting.tax_nr = post_data.get('tax_nr', '')
+    setting.id_nr = post_data.get('id_nr', '')
+    setting.transact_acc = post_data.get('transact_acc', '')
+    setting.phone = post_data.get('phone', '')
+    setting.email = post_data.get('email', '')
+    setting.full_name = post_data.get('full_name', '')
+    setting.save()

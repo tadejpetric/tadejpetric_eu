@@ -35,13 +35,11 @@ def homepage(request):
         pk = request.POST.get('pk')
         if pk is not None:
             receipt_manage.delete(pk=pk, uname=request.user.username)
+    if confirm_post == 'settings':
+        receipt_manage.set_settings(uname=request.user.username, post_data=request.POST)
     # request.user.username is username
-    context = {"receipts": receipt_manage.receipts_list(request.user.username)[::-1], "username": request.user.username}
+    context = {"receipts": receipt_manage.receipts_list(request.user.username), "username": request.user.username}
     return render(request, 'racuni/homepage.html', context)
-
-
-def settings(request):
-    return render(request, 'racuni/settings.html')
 
 
 def form_input(request):
@@ -58,6 +56,7 @@ def form_input(request):
         if 'pk' not in request.POST:
             return redirect('./homepage')  # add error message
         preset.saved_logged_in(request.user.username, request.POST['pk'])
+    print(len(preset.entries), preset.entries)
     context = {'form_type': form_type, 'preset': preset}
     return render(request, 'racuni/form_input.html', context)
 
@@ -85,3 +84,8 @@ def result(request):
         return render(request, 'racuni/result.html', context)
         pass
     return redirect('./login')
+
+
+def settings(request):
+    context = {}
+    return render(request, 'racuni/settings.html', context)

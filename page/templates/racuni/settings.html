@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="sl">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Nastavitve</title>
+    </head>
+    <body>
+        <header><h1>Nastavitve</h1></header>
+        <p>Ko končate z nastavitvami pritisnite gumb "shrani"</p>
+        <form action="homepage" method="POST">
+            {% csrf_token %}
+            <label for="theme">Tema: </label>
+            <select name="theme">
+                <option>lol</option>
+            </select><br>
+            <company>
+                <label for="comp_name">Ime podjetja: </label>
+                <input name="comp_name" type="text" value="{{ preset.comp_name }}"/><br>
+
+                <label for="house_nr">Naslov: </label>
+                <input name="house_nr" type="text" value="{{ preset.house_nr }}"/><br>
+
+                <label for="post_nr">Poštna številka: </label>
+                <input name="post_nr" type="number" value="{{ preset.post_nr }}" /><br>
+                <label for="city">Mesto: </label>
+                <input name="city" type="text" value="{{ preset.city }}"/><br>
+            </company>
+            <!-- right align -->
+            <date_city>
+                <label for="bill_city">Mesto izdaje računa: </label>
+                <input name="bill_city" type="text" value="{{ preset.bill_city }}"/><br>
+            </date_city>
+            <!-- end right align -->
+            <account_info>
+                <label for="tax_nr">Davčna številka: </label>
+                <input name="tax_nr" type="number" value="{{ preset.tax_nr }}"/><br>
+                <label for="id_nr">Matična številka: </label>
+                <input name="id_nr" type="number" value="{{ preset.id_nr}}"/><br>
+
+                <label for="transact_acc">Transakcijski račun: </label>
+                <input name="transact_acc" type="text" value="{{ preset.transact_acc }}" pattern="[A-Z]{2} ?\d{2}[\d A-Za-z]{1,30}" /><br> <!-- error checking ? -->
+            </account_info>
+            <!-- right align -->
+            <contact_info>
+                <label for="phone">Telefon: </label>
+                <input name="phone" type="tel" value="{{ preset.phone }}"/><br>
+                <label for="email">E-pošta: </label>
+                <input name="email" type="email" value="{{ preset.email }}" pattern=".+@.+\..+" /><br>
+            </contact_info>
+            <signiature>
+                <label for="full_name">Ime in priimek: </label>
+                <input name="full_name" type="text" value="{{ preset.full_name }}"/><br>
+            </signiature>
+            <button type="submit" name="confirm" value="settings">Shrani</button>
+        </form>
+        
+    </body>
+</html>

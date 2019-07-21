@@ -40,10 +40,10 @@ function calculate_result(row_number) {
     let second_value = Number(row[3].children[0].value);
     let total = first_value * second_value;
     
-    row[4].children[0].innerText = total.toFixed(2);
+    row[4].innerText = total.toFixed(2);
     let sum_val = 0;
     for (let element of document.getElementById('contents').getElementsByTagName('tbody')[0].children) {
-        sum_val += Number(element.getElementsByTagName('td')[4].children[0].innerText);
+        sum_val += Number(element.getElementsByTagName('td')[4].innerText);
     }
     document.getElementById('contents').getElementsByTagName('tfoot')[0].children[0].getElementsByTagName('td')[2].innerText = sum_val.toFixed(2) + " €";
 }
@@ -54,7 +54,8 @@ function delete_row(row_number) {
     for (let row of document.getElementById('contents').getElementsByTagName('tbody')[0].children) {
         row.getElementsByTagName('td')[2].children[0].setAttribute('oninput', 'calculate_result('+i+');');
         row.getElementsByTagName('td')[3].children[0].setAttribute('oninput', 'calculate_result('+i+');');
-        row.getElementsByTagName('td')[4].children[0].setAttribute('onclick', 'delete_row('+i+');');
+        console.log(row.getElementsByTagName('td'))
+        row.getElementsByTagName('td')[5].children[0].setAttribute('onclick', 'delete_row('+i+');');
         i++;
     }
     calculate_result(0);

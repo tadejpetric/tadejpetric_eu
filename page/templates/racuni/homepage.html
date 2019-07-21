@@ -3,32 +3,43 @@
     <head>
         <meta charset="UTF-8"/>
         <title>Document</title>
+        {% load static %}
+        <link href="{% static 'racuni/homepage.css' %}" rel="stylesheet" />
     </head>
     <body>
-        <header>Osebna stran</header>
-        
+        <header><h1>Pozdravljeni {{ username }}</h1>
+            <form action="login" method="POST">
+                {% csrf_token %}
+                <button id="logout" type="submit" name="special" value="logout"><span>odjava</span></button>
+            </form>
+            <a id="settings" href="/.settings"><span>Nastavitve</span></a>
+        </header>
+        <a id="newrec" href="./form_input"><span>Vnesi nov račun</span></a><br>
         <!-- list of receipts -->
-        <form action="result" method="POST" id="resform"></form>
-        <form action="form_input" method="POST" id="inform"></form>
         {% for receipt in receipts %}
-        <receipt>
-            {{ receipt.pk }}
-            {{ receipt.receipt_title }}
-            {{ receipt.date }}
-            {{ receipt.client }}
-            {{ receipt.total }}
-            <button type="submit" form="resform" name="action" value="print">Natisni</button>
-            
-            <button type="submit" form="inform" name="form_type" value="edit">Uredi</button>
-        </receipt><br>
+            <receipt>
+                <pk>{{ receipt.pk }}</pk>
+                <receipt_title>{{ receipt.receipt_title }}</receipt_title>
+                <date>{{ receipt.date }}</date>
+                <client>{{ receipt.client }}</client>
+                <total>{{ receipt.total }} €</total>
+                <form action="result" method="POST" id="resform">
+                    {% csrf_token %}
+                    <input type="hidden" name="pk" value="{{ receipt.pk }}" />
+                    <button class="print" type="submit" name="action" value="print">Natisni</button>
+                </form>
+                <form action="homepage" method="POST" id="resform">
+                    {% csrf_token %}
+                    <input type="hidden" name="pk" value="{{ receipt.pk }}" />
+                    <button class="delete" id="del{{ receipt.pk }}" type="submit" name="confirm" value="delete" onclick="return confirm('Ali ste prepričani, da želite izbrisati ta račun?'); ">Izbriši</button>
+                </form>
+                <form action="form_input" method="POST" id="resform">
+                    {% csrf_token %}
+                    <input type="hidden" name="pk" value="{{ receipt.pk }}" />
+                    <button class="edit" type="submit" name="form_type" value="edit">Uredi</button>
+                </form>
+            </receipt><br>
         {% endfor %}
         </form>
-        <!-- add edit feature -->
-        <a href="./form_input">Vnesi nov račun</a>
-        <form action="login" method="POST">
-            {% csrf_token %}
-            <button type="submit" name="special" value="logout">odjava</button>
-        </form>
-        
     </body>
 </html>

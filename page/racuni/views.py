@@ -7,11 +7,12 @@ import page.racuni.receipt_manage as receipt_manage
 
 
 def login(request):
+    # Message passing for error signaling
     special = request.POST.get('special', '')
     if special == 'logout':
         logout(request)
         return redirect('./login')
-    
+
     return render(request, 'racuni/login.html')
 
 
@@ -27,11 +28,15 @@ def homepage(request):
             return redirect('./login')
         if not user_manage.login_ses(request):
             return redirect('./login')
-
     if not request.user.is_authenticated:
         return redirect('./login')
+
+    if confirm_post == 'delete':
+        pk = request.POST.get('pk')
+        if pk is not None:
+            receipt_manage.delete(pk=pk, uname=request.user.username)
     # request.user.username is username
-    context = {"receipts": receipt_manage.receipts_list(request.user.username)}
+    context = {"receipts": receipt_manage.receipts_list(request.user.username)[::-1], "username": request.user.username}
     return render(request, 'racuni/homepage.html', context)
 
 
@@ -62,7 +67,6 @@ def form_input_anonymous(request):
 
     context = {'preset': preset, 'form_type': 'anon'}
     return render(request, 'racuni/form_input.html', context)
-    # return render(request, "racuni/form_input_anonymous.html")
 
 
 def result(request):
@@ -72,8 +76,10 @@ def result(request):
         if pk is None:
             # We enter here if making new receipt
             receipt_manage.save_new_to_db(request.POST, request.user.username)
-            return redirect('./homepage')
         # here if editing existing receipt
+        else:
+            receipt_manage.edit_receipt(request.POST, request.user.username, pk)
+        return redirect('./homepage')
     if action == 'print':
         context = {}
         return render(request, 'racuni/result.html', context)

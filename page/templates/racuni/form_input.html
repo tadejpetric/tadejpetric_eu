@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8"/>
         <title>obrazec za račune</title>
-        {%load static%}
+        {% load static %}
         <link href="{% static 'racuni/form_input.css' %}" rel="stylesheet"/>
         <script type="text/javascript" src="{% static 'racuni/form_input.js' %}"></script>
     </head>
@@ -96,12 +96,13 @@
                 </thead>
                 <tbody>
                     {% for entry in preset.entries %}
-                    <tr>
+                    <tr>{{forloop.counter0}}
                         <td><input name="opravilo" value="{{ entry.opravilo }}"/></td>
                         <td><input name="measure_unit" value="{{ entry.measure_unit }}"/></td>
-                        <td><input name="cents_per_quantity" type="number" step="0.01" value="{{ entry.cents_per_quantity }}" /></td>
-                        <td><input name="quantity" type="number" step="0.0001" value="{{ entry.quantity }}" /></td>
+                        <td><input name="cents_per_quantity" type="number" step="0.01" value="{{ entry.cents_per_quantity }}" oninput="calculate_result('{{ forloop.counter0 }}')" /></td>
+                        <td><input name="quantity" type="number" step="0.0001" value="{{ entry.quantity }}" oninput="calculate_result('{{ forloop.counter0 }}');" /></td>
                         <td>{{ entry.total }}</td>
+                        <td><button type="button" onclick="delete_row('{{ forloop.counter0 }}');">Odstrani</button></td>
                     </tr>
                     {% endfor %}
                 </tbody>

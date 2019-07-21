@@ -2,7 +2,7 @@ from django.urls import include, path
 from . import views
 
 urlpatterns = [
-    #path('', views.login, name='login_racuni'),
+    path('', views.homepage, name='homepage_racuni'),
     path('login', views.login, name='login_racuni'),
     path('form_input_anonymous', views.form_input_anonymous,
          name="form_input_anonymous_racuni"),

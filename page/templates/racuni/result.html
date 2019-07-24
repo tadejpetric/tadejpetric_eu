@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="sl">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>{{ preset.comp_name }}</title>
+        {% load static %}
+        <link href="{% static 'racuni/result.css' %}" rel="stylesheet"/>
+    </head>
+    <body>
+        <company>
+            <span id="comp_name">{{ preset.comp_name }}</span><br>
+            <span>{{ preset.house_nr }}</span><br>
+            <span>{{ preset.post_nr }} {{ preset.city }}</span><br>
+        </company>
+        <!-- right align -->
+        <date_city>
+            <span>{{ preset.bill_city }} {{ preset.date }}</span>
+        </date_city> <!-- no br -->
+        <!-- end right align -->
+        <account_info>
+            <span>D.Š.: {{ preset.tax_nr }}</span><br>
+            <span>M.Š.: {{ preset.id_nr }}</span><br>
+            <span>Transakcijski račun</span><br>
+            <span>{{ preset.transact_acc }}</span>
+        </account_info>
+        <!-- right align -->
+        <contact_info>
+            <table>
+                <tr>
+                    <td>telefon</td>
+                    <td>{{ preset.phone }}</td>
+                </tr>
+                <tr>
+                    <td>E-pošta</td>
+                    <td>{{ preset.email }}</td>
+                </tr>
+            </table>
+        </contact_info>
+        <!-- end right align -->
+        <!-- center align -->
+        <receipt_number>
+            <div id="centering">
+                <span>{{ preset.bill_number }}</span>
+            </div>
+        </receipt_number>
+        <!-- end center align -->
+        <buyer_info>
+            <span id="buyer_full_name">{{ preset.buyer_full_name }}</span>
+            <span>{{ preset.buyer_house_nr }}</span>
+            <span>{{ preset.buyer_post_nr }} {{ preset.buyer_city}}</span> <!-- buyer city??????? -->
+            <span>ID za DDV: {{ preset.id_for_vat}}</span>
+        </buyer_info>
+        <!-- right align -->
+        <dates>
+            <table>
+                <tr>
+                    <td>datum opr. stor.</td>
+                    <td>{{ preset.task_date }}</td>
+                </tr>
+                <tr>
+                    <td>rok plačila</td>
+                    <td>{{ preset.payment_date }}</td>
+                </tr>
+            </table>
+        </dates>
+        <!-- end right align -->
+        <receipt_title>
+            <span>{{ preset.task }}</span>
+        </receipt_title>
+        <table id="contents">
+            <thead>
+                <tr>
+                    <th>OPRAVILO</th>
+                    <th>ME</th>
+                    <th>EVRO/KOL</th>
+                    <th>KOLIČINA</th>
+                    <th>SKUPAJ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in preset.entries %}
+                <tr>
+                    <td>{{ entry.opravilo }}</td>
+                    <td>{{ entry.measure_unit }}</td>
+                    <td>{{ entry.cents_per_quantity }}</td>
+                    <td>{{ entry.quantity }}</td>
+                    <td>{{ entry.total }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4">SKUPAJ</td>
+                    <td>{{ preset.total }}</td>
+                </tr>
+            </tfoot>
+        </table>
+        <span id="taxnotice">DDV ni obračunan - 1. točka 94. člena Zakona o DDV</span>
+        <span id="sign-one">{{ preset.full_name }}</span>
+        <span id="sign-two">{{ preset.full_name_ed }}</span>
+    </body>
+</html>

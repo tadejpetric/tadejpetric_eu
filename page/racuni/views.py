@@ -18,6 +18,7 @@ def login(request):
 
 def homepage(request):
     confirm_post = request.POST.get('confirm')
+    print(confirm_post)
     if confirm_post == 'register':
         # add register successful/ unsuccessful
         if user_manage.register(request.POST):

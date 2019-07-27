@@ -93,7 +93,7 @@ class Preset:
         try:
             obj = SavedTemplate.objects.get(username=username)
         except SavedTemplate.DoesNotExist:
-            print("template for", username, "doesn't exist")  # remove in prod
+            print("template for", username, "doesn't exist")
             return
         self.comp_name = obj.comp_name
         self.house_nr = obj.house_nr
@@ -138,7 +138,6 @@ class Preset:
         for o, m, c, q in zip(obj.opravilo, obj.measure_unit,
                               obj.cents_per_quantity, obj.quantity):
             self.entries.append(Entry(o, m, c, q))
-            print(Entry(o, m, c, q).total)
             total += c * q
 
         self.total = round(total/100, 2)
@@ -155,6 +154,23 @@ class Preset:
         self.full_name_ed = self.full_name.upper()
         self.payment_date = iso_to_slo(str(self.payment_date))
         self.task_date = iso_to_slo(str(self.task_date))
+        self.total = str(self.total).replace('.', ',') + ' €'
+        for i, v in enumerate(self.entries):
+            self.entries[i].total = str(v.total).replace('.', ',') + ' €'
+
+            l, r = str(v.quantity).split('.')
+            new_r = ''
+            flag = False
+            for k in r[::-1]:
+                if k != '0' or flag:
+                    flag = True
+                    new_r +=  k
+            if len(new_r) != 0:
+                self.entries[i].quantity = l + ',' + new_r[::-1]
+            else:
+                self.entries[i].quantity = l
+
+            self.entries[i].cents_per_quantity = str(v.cents_per_quantity).replace('.', ',')
         self.date = iso_to_slo(str(self.date))
 
 

@@ -38,7 +38,28 @@ contact_info {
     float: right;
 }
 
+dates {
+    float: right;
+    margin-bottom: 1cm;
+}
+
+dates table tr td:nth-child(1) {
+    padding-right: 0.5cm;
+}
+contact_info table tr td:nth-child(1) {
+    padding-right: 0.5cm;
+}
+
+dates table tr td:nth-child(2) {
+    text-align: right;
+}
+
+contact_info table tr td:nth-child(2) {
+    text-align: right;
+}
+
 receipt_number {
+    margin: 1cm 0 0 0.5cm;
     display: inline-block;
     width: 100%;
 }
@@ -48,6 +69,11 @@ receipt_number {
     width: -moz-fit-content;
     margin-left: auto;
     margin-right: auto;
+}
+
+receipt_title {
+    margin: 1cm 0 0.5cm 0;
+    display: block;
 }
 
 thead {
@@ -80,4 +106,14 @@ tfoot {
 
 .t-r {
     text-align: right;
+}
+
+#sign-one {
+    float: right;
+}
+
+#sign-two {
+    position: absolute;
+    bottom: 1cm;
+    right: 1cm;
 }

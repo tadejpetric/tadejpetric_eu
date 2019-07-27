@@ -11,18 +11,18 @@
             <span id="comp_name">{{ preset.comp_name }}</span><br>
             <span>{{ preset.house_nr }}</span><br>
             <span>{{ preset.post_nr }} {{ preset.city }}</span><br>
-        </company>
+        </company><br>
         <!-- right align -->
         <date_city>
             <span>{{ preset.bill_city }} {{ preset.date }}</span>
-        </date_city> <!-- no br -->
+        </date_city><br>
         <!-- end right align -->
         <account_info>
             <span>D.Š.: {{ preset.tax_nr }}</span><br>
             <span>M.Š.: {{ preset.id_nr }}</span><br>
             <span>Transakcijski račun</span><br>
             <span>{{ preset.transact_acc }}</span>
-        </account_info>
+        </account_info><br>
         <!-- right align -->
         <contact_info>
             <table>
@@ -35,19 +35,19 @@
                     <td>{{ preset.email }}</td>
                 </tr>
             </table>
-        </contact_info>
+        </contact_info><br>
         <!-- end right align -->
         <!-- center align -->
         <receipt_number>
             <div id="centering">
                 <span>{{ preset.bill_number }}</span>
-            </div>
+            </div><br>
         </receipt_number>
         <!-- end center align -->
         <buyer_info>
-            <span id="buyer_full_name">{{ preset.buyer_full_name }}</span>
-            <span>{{ preset.buyer_house_nr }}</span>
-            <span>{{ preset.buyer_post_nr }} {{ preset.buyer_city}}</span> <!-- buyer city??????? -->
+            <span id="buyer_full_name">{{ preset.buyer_full_name }}</span><br>
+            <span>{{ preset.buyer_house_nr }}</span><br>
+            <span>{{ preset.buyer_post_nr }} {{ preset.buyer_city}}</span><br> <!-- buyer city??????? -->
             <span>ID za DDV: {{ preset.id_for_vat}}</span>
         </buyer_info>
         <!-- right align -->
@@ -80,23 +80,23 @@
             <tbody>
                 {% for entry in preset.entries %}
                 <tr>
-                    <td>{{ entry.opravilo }}</td>
-                    <td>{{ entry.measure_unit }}</td>
-                    <td>{{ entry.cents_per_quantity }}</td>
-                    <td>{{ entry.quantity }}</td>
-                    <td>{{ entry.total }}</td>
+                    <td class="t-l">{{ entry.opravilo }}</td>
+                    <td class="t-c">{{ entry.measure_unit }}</td>
+                    <td class="t-r">{{ entry.cents_per_quantity }}</td>
+                    <td class="t-r">{{ entry.quantity }}</td>
+                    <td class="t-r">{{ entry.total }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="4">SKUPAJ</td>
-                    <td>{{ preset.total }}</td>
+                    <td class="t-r">{{ preset.total }}</td>
                 </tr>
             </tfoot>
         </table>
-        <span id="taxnotice">DDV ni obračunan - 1. točka 94. člena Zakona o DDV</span>
-        <span id="sign-one">{{ preset.full_name }}</span>
+        <p id="taxnotice">DDV ni obračunan - 1. točka 94. člena Zakona o DDV</p>
+        <span id="sign-one">{{ preset.full_name }}</span><br>
         <span id="sign-two">{{ preset.full_name_ed }}</span>
     </body>
 </html>

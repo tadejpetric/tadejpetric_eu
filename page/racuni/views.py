@@ -57,6 +57,7 @@ def form_input(request):
         if 'pk' not in request.POST:
             return redirect('./homepage')  # add error message
         preset.saved_logged_in(request.user.username, request.POST['pk'])
+        preset.prepare_edit()
     print(len(preset.entries), preset.entries)
     context = {'form_type': form_type, 'preset': preset}
     return render(request, 'racuni/form_input.html', context)
@@ -71,6 +72,7 @@ def form_input_anonymous(request):
 
 def result(request):
     action = request.POST.get('action')
+    pk = request.POST.get('pk')
     if action == 'save':
         pk = request.POST.get('pk')
         if pk is None:
@@ -80,10 +82,12 @@ def result(request):
         else:
             receipt_manage.edit_receipt(request.POST, request.user.username, pk)
         return redirect('./homepage')
-    if action == 'print':
-        context = {}
+    if action == 'print' and request.user.is_authenticated and pk is not None:
+        preset = receipt_manage.Preset()
+        preset.saved_logged_in(request.user.username, pk)
+        preset.prepare_print()
+        context = {'preset': preset}
         return render(request, 'racuni/result.html', context)
-        pass
     return redirect('./login')
 
 

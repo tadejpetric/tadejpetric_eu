@@ -40,6 +40,7 @@ class SavedReceipt(models.Model):
     buyer_full_name = models.CharField(max_length=50, blank=True, null=True)
     buyer_house_nr = models.CharField(max_length=30, blank=True, null=True)
     buyer_post_nr = models.CharField(max_length=4, blank=True, null=True)
+    buyer_city = models.CharField(max_length=20, blank=True, null=True)
     id_for_vat = models.CharField(max_length=20, blank=True, null=True)
 
     task_date = models.DateField(blank=True, null=True)

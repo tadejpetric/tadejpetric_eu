@@ -1,0 +1,83 @@
+@media print {
+    body {
+        font-size: 10pt;
+    }
+}
+/*
+@page {
+    background: red;
+    margin: 5cm;
+}*/
+
+* {
+    /* so browsers actually don't ignore your html */
+    color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+
+date_city,company,account_info,contact_info,receipt_number {
+    clear: both;
+    display: block;
+}
+
+date_city {
+    float: right;
+}
+
+company {
+    float: left;
+}
+
+account_info {
+    float: left;
+}
+
+contact_info {
+    float: right;
+}
+
+receipt_number {
+    display: inline-block;
+    width: 100%;
+}
+
+#centering {
+    width: max-content;
+    width: -moz-fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+thead {
+    display: table-header-group;
+    border-bottom: 1px solid black;
+    margin-bottom: 0.5cm;
+}
+
+tbody {
+    
+}
+
+tfoot {
+    border-top: 2px solid #3345ea;
+    color: #3345ea;
+}
+
+#contents {
+    border-collapse: collapse;
+    width: 90%;
+}
+
+.t-l {
+    text-align: left;
+}
+
+.t-c {
+    text-align: center;
+}
+
+.t-r {
+    text-align: right;
+}

@@ -60,6 +60,11 @@ class Entry:
         self.total = price_from_cents(round(quantity * cents_per_quantity, 2))
 
 
+def iso_to_slo(iso_date):
+    y, m, d = iso_date.split('-')
+    return d + '.' + m + '.' + y
+
+
 class Preset:
     def __init__(self):
         self.comp_name = ""
@@ -75,6 +80,7 @@ class Preset:
         self.buyer_full_name = ""
         self.buyer_house_nr = ""
         self.buyer_post_nr = ""
+        self.buyer_city = ""
         self.id_for_vat = ""
         self.task_date = ""
         self.payment_date = ""
@@ -109,6 +115,7 @@ class Preset:
 
         self.comp_name = obj.comp_name
         self.house_nr = obj.house_nr
+        self.post_nr = obj.post_nr
         self.city = obj.city
         self.bill_city = obj.bill_city
         self.date = obj.date
@@ -121,6 +128,7 @@ class Preset:
         self.buyer_full_name = obj.buyer_full_name
         self.buyer_house_nr = obj.buyer_house_nr
         self.buyer_post_nr = obj.buyer_post_nr
+        self.buyer_city = obj.buyer_city
         self.id_for_vat = obj.id_for_vat
         self.task_date = obj.task_date
         self.payment_date = obj.payment_date
@@ -137,6 +145,17 @@ class Preset:
         self.full_name = obj.full_name
         self.pk = pk
         return True
+
+    def prepare_edit(self):
+        self.payment_date = str(self.payment_date)
+        self.date = str(self.date)
+        self.task_date = str(self.task_date)
+
+    def prepare_print(self):
+        self.full_name_ed = self.full_name.upper()
+        self.payment_date = iso_to_slo(str(self.payment_date))
+        self.task_date = iso_to_slo(str(self.task_date))
+        self.date = iso_to_slo(str(self.date))
 
 
 """
@@ -167,6 +186,7 @@ def all_equal(*args):
 
 def receipt_handler(post_data, new_rec):
     new_rec.house_nr = post_data.get('house_nr', '')
+    new_rec.comp_name = post_data.get('comp_name', '')
     new_rec.post_nr = post_data.get('post_nr', '')
     new_rec.city = post_data.get('city', '')
     new_rec.bill_city = post_data.get('bill_city', '')
@@ -180,6 +200,7 @@ def receipt_handler(post_data, new_rec):
     new_rec.buyer_full_name = post_data.get('buyer_full_name', '')
     new_rec.buyer_house_nr = post_data.get('buyer_house_nr', '')
     new_rec.buyer_post_nr = post_data.get('buyer_post_nr', '')
+    new_rec.buyer_city = post_data.get('buyer_city', '')
     new_rec.id_for_vat = post_data.get('id_for_vat', '')
 
     new_rec.task_date = iso_to_date(post_data.get('task_date', ''))
@@ -219,7 +240,7 @@ def receipt_handler(post_data, new_rec):
 def save_new_to_db(post_data, username):
     new_rec = SavedReceipt.objects.create()
     new_rec.username = username
-    receipt_handler(new_rec)
+    receipt_handler(post_data, new_rec)
 
 
 def edit_receipt(post_data, username, pk):
@@ -255,3 +276,5 @@ def set_settings(uname, post_data):
     setting.email = post_data.get('email', '')
     setting.full_name = post_data.get('full_name', '')
     setting.save()
+
+    

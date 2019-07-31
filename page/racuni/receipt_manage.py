@@ -293,4 +293,28 @@ def set_settings(uname, post_data):
     setting.full_name = post_data.get('full_name', '')
     setting.save()
 
-    
+
+# statistics
+
+def monthly_earnings(uname):
+    year = datetime.datetime.now().year
+    current_year = datetime.date(year, 1, 1)
+    receipts = SavedReceipt.objects.filter(username=uname,
+                                           payment_date__gte=current_year)
+
+    monthly = {x: 0 for x in range(1, 13)}
+    for receipt in receipts:
+        rec_month = receipt.payment_date.month
+        total = float(get_total(receipt))
+        monthly[rec_month] += total
+    print(monthly)
+    maximum = max(monthly, key=lambda x: monthly[x])
+    maximum = monthly[maximum]
+    for month in monthly:
+        if maximum != 0:
+            monthly[month] = monthly[month]/maximum
+            monthly[month] = int(monthly[month]*100)
+            if monthly[month] == 0:
+                monthly[month] = 1
+
+    return monthly, maximum

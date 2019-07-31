@@ -7,6 +7,8 @@ import page.racuni.receipt_manage as receipt_manage
 
 
 def login(request):
+    if request.user.is_authenticated:
+        return redirect('./homepage')
     # Message passing for error signaling
     special = request.POST.get('special', '')
     if special == 'logout':
@@ -92,5 +94,21 @@ def result(request):
 
 
 def settings(request):
-    context = {}
+    if not request.user.is_authenticated:
+        return redirect('./login')
+    preset = receipt_manage.Preset()
+    preset.new_logged_in(request.user.username)
+    context = {'preset': preset}
     return render(request, 'racuni/settings.html', context)
+
+
+def statistics(request):
+    if not request.user.is_authenticated:
+        return redirect('./login')
+    uname = request.user.username
+    context = {}
+    monthly, maximum = receipt_manage.monthly_earnings(uname)
+    print(monthly, maximum)
+    context['max_per_month'] = maximum
+    context['monthly'] = monthly
+    return render(request, 'racuni/statistics.html', context)

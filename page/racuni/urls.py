@@ -10,4 +10,5 @@ urlpatterns = [
     path('homepage', views.homepage, name='homepage_racuni'),
     path('form_input', views.form_input, name='form_input_racuni'),
     path('settings', views.settings, name='settings_racuni'),
+    path('statistics', views.statistics, name='statistics_racuni'),
 ]

@@ -3,11 +3,16 @@ My personal webpage registered to tadejpetric.eu
 visit /racun receipt generator (in Slovenian)
 
 instruction notes:
-you need postgresql
-on arch linux instructions:
+
+Create a python virtual environment with `python -m venv tadejpetric_eu` and activate it with `source bin/activate.sh` (or the supported scripting language of your choice)
+
+Clone the repository in the venv (using `git clone git@github.com:tadejpetric/tadejpetric_eu.git`)
+
+Install the python requirements with pip. This is done using `pip install -r requirements.txt`
+
+Lastly, you will need to set up the database. The project uses the postgres because of its array attributes (and simply because it's a great database). The following instructions are based on Arch Linux
 ```
 sudo pacman -S postgresql
-pip install psycopg2
 
 sudo -iu postgres
 initdb -D /var/lib/postgres/data
@@ -29,10 +34,11 @@ GRANT all PRIVILEGES ON DATABASE page TO pageuser;
 \q
 exit
 
-#systemctl enable postgresql.service
-#systemctl start postgresql.service
-
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver 0:8080
 ```
+
+This should get the server up and running. You can reach it on <http://localhost:8080> but the relevant content is currently on <http://localhost:8080/racuni>
+
+The rest of the documentation is in the project folders.

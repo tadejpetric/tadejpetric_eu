@@ -1,18 +1,27 @@
 <!doctype html>
-<html lang="en">
+<html lang="sl">
     <head>
         <meta charset="UTF-8"/>
-        <title>Document</title>
+        <title>Prijava</title>
+        {% load static %}
+        <link href="{% static 'racuni/login.css' %}" rel="stylesheet"/>
     </head>
     <body>
-        <h1>Vpis</h1>
+        <header>
+            <h1>Vpis</h1>
+        </header>
+        {% if status %}
+        <div id="status-msg" style="background-color: {{ colour }};">
+            <span>{{ message }}</span>
+        </div>
+        {% endif %}
         <form action="homepage" method="POST">
             {% csrf_token %}
             <label for="username">Uporabniško ime: </label>
-            <input name="username" type="text" value="" required/>
+            <input name="username" type="text" value="" required/><br>
 
             <label for="password">Geslo: </label>
-            <input name="password" type="password" value="" required/>
+            <input name="password" type="password" value="" required/><br>
 
             <button name="confirm" type="submit" value="login">Prijava</button>
             <button name="confirm" type="submit" value="register">Registracija</button>

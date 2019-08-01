@@ -296,11 +296,14 @@ def set_settings(uname, post_data):
 
 # statistics
 
-def monthly_earnings(uname):
+def start_of_year():
     year = datetime.datetime.now().year
-    current_year = datetime.date(year, 1, 1)
+    return datetime.date(year, 1, 1)
+
+
+def monthly_earnings(uname):
     receipts = SavedReceipt.objects.filter(username=uname,
-                                           payment_date__gte=current_year)
+                                           payment_date__gte=start_of_year())
 
     monthly = {x: 0 for x in range(1, 13)}
     for receipt in receipts:
@@ -317,4 +320,18 @@ def monthly_earnings(uname):
             if monthly[month] == 0:
                 monthly[month] = 1
 
-    return monthly, maximum
+    return monthly, round(maximum/100, 2)
+
+
+def avg_value_count(uname):
+    receipts = SavedReceipt.objects.filter(username=uname,
+                                           payment_date__gte=start_of_year())
+    total = 0
+    count = 0
+    for receipt in receipts:
+        total += float(get_total(receipt))
+        count += 1
+    if count:
+        return round(total / (count * 100), 2), count
+    return 0, 0
+

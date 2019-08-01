@@ -3,16 +3,17 @@
     <head>
         <meta charset="UTF-8"/>
         <title>Nastavitve</title>
+        {% load static %}
+        <link href="{% static 'racuni/login.css' %}" rel="stylesheet"/>
     </head>
     <body>
-        <header><h1>Nastavitve</h1></header>
+        <header>
+            <h1>Nastavitve</h1>
+            <a class="headerbutton" href="homepage"><span>Domov</span></a>
+        </header>
         <p>Ko končate z nastavitvami pritisnite gumb "shrani"</p>
         <form action="homepage" method="POST">
             {% csrf_token %}
-            <label for="theme">Tema: </label>
-            <select name="theme">
-                <option>lol</option>
-            </select><br>
             <company>
                 <label for="comp_name">Ime podjetja: </label>
                 <input name="comp_name" type="text" value="{{ preset.comp_name }}"/><br>

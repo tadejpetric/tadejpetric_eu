@@ -7,15 +7,39 @@ import page.racuni.receipt_manage as receipt_manage
 
 
 def login(request):
-    if request.user.is_authenticated:
-        return redirect('./homepage')
-    # Message passing for error signaling
-    special = request.POST.get('special', '')
-    if special == 'logout':
+    if request.POST.get('special') == 'logout':
+        print("special")
         logout(request)
         return redirect('./login')
+    
+    if request.user.is_authenticated:
+        return redirect('./homepage')
+    context = {'message': "", 'colour': "", 'status': False}
 
-    return render(request, 'racuni/login.html')
+    success_colour = '#90e25d'
+    fail_colour = '#f25232'
+
+    loging = request.GET.get('login')
+    if loging == 'False':
+        context['message'] = 'Prijava neuspešna'
+        context['colour'] = fail_colour
+        context['status'] = True
+    registerg = request.GET.get('register')
+    if registerg == 'True':
+        context['message'] = 'Registracija uspešna'
+        context['colour'] = success_colour
+        context['status'] = True
+    if registerg == 'False':
+        context['message'] = 'Registracija neuspešna'
+        context['colour'] = fail_colour
+        context['status'] = True
+    loggedg = request.GET.get('logged')
+    if loggedg == 'False':
+        context['message'] = 'Za dostop te strani morate biti prijavljeni'
+        context['colour'] = fail_colour
+        context['status'] = True
+
+    return render(request, 'racuni/login.html', context)
 
 
 def homepage(request):
@@ -24,15 +48,15 @@ def homepage(request):
     if confirm_post == 'register':
         # add register successful/ unsuccessful
         if user_manage.register(request.POST):
-            return render(request, './login')
-        return render(request, './login')
+            return redirect('./login?register=True')
+        return redirect('./login?register=False')
     if confirm_post == 'login':
         if not user_manage.input_validate(request.POST):
-            return redirect('./login')
+            return redirect('./login?login=False')
         if not user_manage.login_ses(request):
-            return redirect('./login')
+            return redirect('./login?login=False')
     if not request.user.is_authenticated:
-        return redirect('./login')
+        return redirect('./login?logged=False')
 
     if confirm_post == 'delete':
         pk = request.POST.get('pk')
@@ -47,7 +71,7 @@ def homepage(request):
 
 def form_input(request):
     if not request.user.is_authenticated:
-        return redirect('./login')
+        return redirect('./login?logged=False')
     form_type = request.POST.get('form_type', 'new')
 
     preset = receipt_manage.Preset()
@@ -95,7 +119,7 @@ def result(request):
 
 def settings(request):
     if not request.user.is_authenticated:
-        return redirect('./login')
+        return redirect('./login?logged=False')
     preset = receipt_manage.Preset()
     preset.new_logged_in(request.user.username)
     context = {'preset': preset}
@@ -104,11 +128,14 @@ def settings(request):
 
 def statistics(request):
     if not request.user.is_authenticated:
-        return redirect('./login')
+        return redirect('./login?logged=False')
     uname = request.user.username
     context = {}
     monthly, maximum = receipt_manage.monthly_earnings(uname)
-    print(monthly, maximum)
     context['max_per_month'] = maximum
     context['monthly'] = monthly
+    average, count = receipt_manage.avg_value_count(uname)
+    context['average'] = average
+    context['count'] = count
+    context['total'] = average * count
     return render(request, 'racuni/statistics.html', context)

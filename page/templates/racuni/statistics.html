@@ -5,34 +5,35 @@
         <title>Statistika</title>
         {% load static %}
         <link href="{% static 'racuni/statistics.css' %}" rel="stylesheet"/>
-        <style>
-         :root {
-             {% for month, height in monthly.items %}
-             --size-monthly-month{{ month }}: {{ height }}%;
-             {% endfor %}
-         }
-        </style>
     </head>
     <body>
-        <h1>Statistika</h1>
-        <div id="monthchart" class="chart">
-            <div><span>Jan</span></div>
-            <div><span>Feb</span></div>
-            <div><span>Mar</span></div>
-            <div><span>Apr</span></div>
-            <div><span>Maj</span></div>
-            <div><span>Jun</span></div>
-            <div><span>Jul</span></div>
-            <div><span>Avg</span></div>
-            <div><span>Sep</span></div>
-            <div><span>Okt</span></div>
-            <div><span>Nov</span></div>
-            <div><span>Dec</span></div><br>
-            {% for month, height in monthly.items %}
-            <div class="column" style="height: {{ height }}%;"></div>
-            {% endfor %}
-            <br>
-            <separate></separate>
-        </div>
+        <header>
+            <h1>Statistika</h1>
+        </header>
+        <div class="monthwrapper">
+            <div id="monthchart" class="chart">
+                <div><span>Jan</span></div>
+                <div><span>Feb</span></div>
+                <div><span>Mar</span></div>
+                <div><span>Apr</span></div>
+                <div><span>Maj</span></div>
+                <div><span>Jun</span></div>
+                <div><span>Jul</span></div>
+                <div><span>Avg</span></div>
+                <div><span>Sep</span></div>
+                <div><span>Okt</span></div>
+                <div><span>Nov</span></div>
+                <div><span>Dec</span></div><br>
+                {% for month, height in monthly.items %}
+                <div class="column" style="height: {{ height }}%;"></div>
+                {% endfor %}
+                <br>
+                <separate></separate>
+            </div>
+            <div class="total">{{ max_per_month }}€</div>
+        </div><br>
+        <p>Povprečna vrednost računa: {{ average }}€</p>
+        <p>Število izdanih računov: {{ count }}</p>
+        <p>Skupna vrednost računov: {{ total }}€</p>
     </body>
 </html>

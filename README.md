@@ -1,6 +1,6 @@
 My personal webpage registered to tadejpetric.eu
 
-visit /racun receipt generator (in Slovenian)
+The `page` folder contains the application and implementation (as well as further README files); `website` contains the settings.
 
 instruction notes:
 
@@ -40,5 +40,3 @@ python manage.py runserver 0:8080
 ```
 
 This should get the server up and running. You can reach it on <http://localhost:8080> but the relevant content is currently on <http://localhost:8080/racuni>
-
-The rest of the documentation is in the project folders.

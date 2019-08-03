@@ -9,32 +9,36 @@
     <body>
         <header>
             <h1>Statistika</h1>
+            <a href="homepage"><span>Domov</span></a>
         </header>
-        
-        <div class="monthwrapper">
-            <div id="monthchart" class="chart">
-                <div><span>Jan</span></div>
-                <div><span>Feb</span></div>
-                <div><span>Mar</span></div>
-                <div><span>Apr</span></div>
-                <div><span>Maj</span></div>
-                <div><span>Jun</span></div>
-                <div><span>Jul</span></div>
-                <div><span>Avg</span></div>
-                <div><span>Sep</span></div>
-                <div><span>Okt</span></div>
-                <div><span>Nov</span></div>
-                <div><span>Dec</span></div><br>
-                {% for month, height in monthly.items %}
-                <div class="column" style="height: {{ height }}%;"></div>
-                {% endfor %}
-                <br>
-                <separate></separate>
-            </div>
-            <div class="total">{{ max_per_month }}€</div>
-        </div><br>
-        <p>Povprečna vrednost računa: {{ average }}€</p>
-        <p>Število izdanih računov: {{ count }}</p>
-        <p>Skupna vrednost računov: {{ total }}€</p>
+        <contents>
+            <p>Podatki izračunani z računi, ki imajo rok plačila trenutno leto</p>
+            <div class="monthwrapper">
+                Skupna vrednost izdanih računov po mesecih:<br>
+                <div id="monthchart" class="chart">
+                    <div><span>Jan</span></div>
+                    <div><span>Feb</span></div>
+                    <div><span>Mar</span></div>
+                    <div><span>Apr</span></div>
+                    <div><span>Maj</span></div>
+                    <div><span>Jun</span></div>
+                    <div><span>Jul</span></div>
+                    <div><span>Avg</span></div>
+                    <div><span>Sep</span></div>
+                    <div><span>Okt</span></div>
+                    <div><span>Nov</span></div>
+                    <div><span>Dec</span></div><br>
+                    {% for month, height in monthly.items %}
+                    <div class="column" style="height: {{ height }}%;"></div>
+                    {% endfor %}
+                    <br>
+                    <separate></separate>
+                </div>
+                <div class="total">{{ max_per_month }}€</div>
+            </div><br>
+            <p>Povprečna vrednost računa: {{ average }}€</p>
+            <p>Število izdanih računov: {{ count }}</p>
+            <p>Skupna vrednost računov: {{ total }}€</p>
+        </contents>
     </body>
 </html>

@@ -32,7 +32,7 @@
                 <form action="homepage" method="POST" id="resform">
                     {% csrf_token %}
                     <input type="hidden" name="pk" value="{{ receipt.pk }}" />
-                    <button class="delete" id="del{{ receipt.pk }}" type="submit" name="confirm" value="delete" onclick="return confirm('Ali ste prepričani, da želite izbrisati ta račun?'); ">Izbriši</button>
+                    <button class="delete" id="del{{ receipt.pk }}" type="submit" name="confirm" value="delete" onclick="return window.confirm('Ali ste prepričani, da želite izbrisati ta račun?'); ">Izbriši</button>
                 </form>
                 <form action="form_input" method="POST" id="resform">
                     {% csrf_token %}

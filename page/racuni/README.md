@@ -6,7 +6,7 @@ If you have a small company (mostly s.p. in Slovenia), you need to generate rece
 
 In the following section, URL's listed will be relative to the current app; if the URL is mentioned as `login` it would mean `localhost:8080/racuni/login` if following the locally hosted instructions on the main readme. The URLs are in code blocks (making links wouldn't work with every setup).
 
-### accessible sites
+### Accessible sites
 
 The app starts on the login page at `login`. There's an option to register a new account and login. The page also supports some error messages (if you get redirected from an inaccessible page, failed and successful registers and failed logins). Logging in will redirect to `homepage`, registring will reload the site with a status message. Alternatively, you can choose to ignore accounts and enter a receipt anonymously. By clicking that link, you are redirected to `form_input_anonymous`.
 

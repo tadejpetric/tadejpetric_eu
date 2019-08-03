@@ -61,8 +61,11 @@ class Entry:
 
 
 def iso_to_slo(iso_date):
-    y, m, d = iso_date.split('-')
-    return d + '.' + m + '.' + y
+    try:
+        y, m, d = iso_date.split('-')
+        return d + '.' + m + '.' + y
+    except ValueError:
+        return ""
 
 
 class Preset:

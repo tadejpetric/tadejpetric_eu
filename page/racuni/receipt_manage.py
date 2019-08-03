@@ -191,7 +191,6 @@ def iso_to_date(iso: str):
 
 
 def all_equal(*args):
-    print(args)
     if len(args) == 0:
         return True
     for x in args[1:]:
@@ -230,7 +229,6 @@ def receipt_handler(post_data, new_rec):
     new_rec.quantity = []
 
     getcontext().prec = 10
-    print(post_data)
     if all_equal(len(post_data.getlist('opravilo')),
                  len(post_data.getlist('measure_unit')),
                  len(post_data.getlist('cents_per_quantity')),
@@ -310,7 +308,7 @@ def monthly_earnings(uname):
         rec_month = receipt.payment_date.month
         total = float(get_total(receipt))
         monthly[rec_month] += total
-    print(monthly)
+
     maximum = max(monthly, key=lambda x: monthly[x])
     maximum = monthly[maximum]
     for month in monthly:

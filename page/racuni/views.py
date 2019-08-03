@@ -8,7 +8,6 @@ import page.racuni.receipt_manage as receipt_manage
 
 def login(request):
     if request.POST.get('special') == 'logout':
-        print("special")
         logout(request)
         return redirect('./login')
     
@@ -44,7 +43,6 @@ def login(request):
 
 def homepage(request):
     confirm_post = request.POST.get('confirm')
-    print(confirm_post)
     if confirm_post == 'register':
         # add register successful/ unsuccessful
         if user_manage.register(request.POST):
@@ -84,7 +82,6 @@ def form_input(request):
             return redirect('./homepage')  # add error message
         preset.saved_logged_in(request.user.username, request.POST['pk'])
         preset.prepare_edit()
-    print(len(preset.entries), preset.entries)
     context = {'form_type': form_type, 'preset': preset}
     return render(request, 'racuni/form_input.html', context)
 

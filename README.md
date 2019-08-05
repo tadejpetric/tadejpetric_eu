@@ -35,6 +35,7 @@ GRANT all PRIVILEGES ON DATABASE page TO pageuser;
 exit
 
 python manage.py makemigrations
+python manage.py makemigrations racuni
 python manage.py migrate
 python manage.py runserver 0:8080
 ```
